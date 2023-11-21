@@ -2,11 +2,14 @@
 
 import express from "express"; // importamos la libreria de express para cojstruir el server
 import morgan from "morgan"; // importamos morgan  para escuchar las peticiones
+import authRoutes from "./routes/auth.routes.js";
 
-const app = express(); // ese app va hacer referencia al servisor.
+const app = express(); // ese app va hacer referencia al servisor. con esto la inicializamos express
 
 app.use(morgan('dev')); // Se indica a la app que use la app morgar con su configuracion dev.
 // esa configuracion dev es para que muestre un mensaje corto en consola.
+
+app.use(authRoutes); // esto es para indicar quiero que utilices add rauter
 
 export default app; // Es para decirle que ya inicializo app y lo exporte.
 
