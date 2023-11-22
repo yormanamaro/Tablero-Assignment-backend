@@ -6,12 +6,12 @@ const userSchema = mongoose.Schema({
   username: {
     type: String, // se define el tipo de dato que va a requerir
     require: true, // Se define si va a se un dato un dato obligatorio.
-    trim: true, // Esrto lo que va hacer es quitar los espacios en blanco que tenga un nombre de usuario
+    trim: true, // Esto lo que va hacer es quitar los espacios en blanco que tenga un nombre de usuario
   },
   email: {
     type: String, // se define el tipo de dato que va a requerir
     require: true, // Se define si va a se un dato un dato obligatorio.
-    trim: true, // Esrto lo que va hacer es quitar los espacios en blanco que tenga un nombre de usuario
+    trim: true, // Esto lo que va hacer es quitar los espacios en blanco que tenga un nombre de usuario
     unique: true, // para que cada email sea unico y no lo puedan repetir usuarios.
   },
   password: {

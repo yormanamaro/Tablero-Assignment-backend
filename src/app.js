@@ -1,8 +1,8 @@
 // Aqui inicializamos el servidor con express lo configuramos
 
-import express from "express"; // importamos la libreria de express para cojstruir el server
-import morgan from "morgan"; // importamos morgan  para escuchar las peticiones
-import authRoutes from "./routes/auth.routes.js";
+import express from 'express'; // importamos la libreria de express para cojstruir el server
+import morgan from 'morgan'; // importamos morgan  para escuchar las peticiones
+import authRoutes from './routes/auth.routes.js';
 
 const app = express(); // ese app va hacer referencia al servisor. con esto la inicializamos express
 
