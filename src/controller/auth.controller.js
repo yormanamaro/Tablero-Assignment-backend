@@ -1,6 +1,7 @@
 // Este archivo va a permitir crear peticiones mediante funciones
 import User from '../models/user.models.js'; // importamos nuestro modelo de carga de usuarios la forma en que se van a requerir
 import bcrypt from 'bcryptjs'; // Con esta libreria lo que buscamos es excriptar los password para seguridad
+import jwt from 'jsonwebtoken'; // Esto lo que hace es validar cada peticion que se vaya hacer al back
 
 export const register = async ( req, res) => { // esto es lo que va a tomar la app de la info del usuario para guardar en la base de datos en el registro y esto lo hace en formato json
     const { email, password, username } = req.body; 
@@ -18,13 +19,31 @@ export const register = async ( req, res) => { // esto es lo que va a tomar la a
       // ahora luego de que el usuario esta creado con su id se guarda en la bd
   
       const userSaved = await newUser.save(); // como es una funcion asincrona debe ir con async y await la funcion que lo contiene
-      res.json({ // Con eso lo que se hace es que el backend regrese al front el usuario guardado.
+
+      // Se pasa por la validacion del token
+      jwt.sign({ // se crea el token
         id: userSaved.id,
-        username: userSaved.username,
-        email: userSaved.email,
-        createAt: userSaved.createAt,
-        updateAt: userSaved.updateAt,
-      }) 
+      }, 
+      "secret123",
+      {
+        expiresIn: "1d"
+      },
+      (err, token) => {
+        if (err) console.log(err);
+        res.cookie('token', token) // Se devuelve al usuario. (Pero ademas se le pasa por una coockie para que el front no tenga que hacer eso directamente en el navegador)
+        res.json({
+          message: "User created successfully" // Con esto respondes 
+        })
+      }
+      );
+
+      //res.json({ // Con eso lo que se hace es que el backend regrese al front el usuario guardado.
+      //  id: userSaved.id,
+      //  username: userSaved.username,
+      //  email: userSaved.email,
+      //  createAt: userSaved.createAt,
+      //  updateAt: userSaved.updateAt,
+      //}) 
     } catch (error) {
       console.log(error);
     }
