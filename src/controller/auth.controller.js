@@ -5,16 +5,16 @@ import bcrypt from 'bcryptjs'; // Con esta libreria lo que buscamos es excriptar
 import { createAccesToken } from '../libs/jwt.js'; // Ya no importamos jwt como arriba sino que nos traemos la funcionk creada en la carpeta libs.
 
 export const register = async ( req, res) => { // esto es lo que va a tomar la app de la info del usuario para guardar en la base de datos en el registro y esto lo hace en formato json
-    const { email, password, username } = req.body; 
+    const {email, password, username} = req.body;
 
     try { // Se colocan dentro de un try/catch la funcion de creacion y guardado del usuario que la app me indique de existir algun error 
 
       const passwordHash = await bcrypt.hash(password, 10) // Esto lo que hace es usar bcryptjs con su metodo hash para el password convertirlo en 10 caractereds aleatorios.
 
       const newUser = new User({ // esto lo que hace es crear un nuevo usuario en la BD tomando como referencia los datos ingresados por usuario y del modelo creado
-        username: username,
-        email: email,
-        password: passwordHash,
+        username,
+        email,
+        password: passwordHash, // pasamos la encriptacion de la contrasena 
       });
   
       // ahora luego de que el usuario esta creado con su id se guarda en la bd
@@ -22,8 +22,8 @@ export const register = async ( req, res) => { // esto es lo que va a tomar la a
       const userSaved = await newUser.save(); // como es una funcion asincrona debe ir con async y await la funcion que lo contiene
       const token =  await createAccesToken({ id: userSaved._id }); // Le pasamos el valor que queremos crear que es el usuario que acabamos de crear
       res.cookie('token', token) // Se devuelve al usuario. (Pero ademas se le pasa por una coockie para que el front no tenga que hacer eso directamente en el navegador)
-      res.json({
-        id: userSaved.id,
+      res.json({ // Esto es lo que mongo va a regresar al fronted o el usuario.
+        id: userSaved._id,
         username: userSaved.username,
         email: userSaved.email,
         createAt: userSaved.createdAt,

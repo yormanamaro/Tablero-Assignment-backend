@@ -6,7 +6,7 @@ import { login, register } from '../controller/auth.controller.js'; // importamo
 
 const router = Router(); // llamamos a la funcion Rauter y lo guardamos dentro de una constante llamada rauter.
 
-router.post('/register', register); // Se crea ruta para subir cosas y le pasamos las funciones creadas en auth.controller
-router.post('/login', login); // y se crea ruta para llamar cosas y le pasamos la funcion creada en auth.controller
+router.post("/register", register); // Se crea ruta para subir cosas y le pasamos las funciones creadas en auth.controller
+router.post("/login", login); // y se crea ruta para llamar cosas y le pasamos la funcion creada en auth.controller
 
 export default router;
