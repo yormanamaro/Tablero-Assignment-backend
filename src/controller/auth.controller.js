@@ -152,3 +152,16 @@ export const login = async ( req, res) => { // esto es lo que va a tomar la app 
   // console.log(email, password, username);
   //res.send('registrando')
 };
+
+
+
+
+
+//// DE AQUI HACIA ABAJO ES PARA EL LOGOUT SALIR DE LA SECION: ////
+
+export const logout = (req, res) => {
+  res.cookie("token", "", { // metodo cookie token el valor va a estar vacio
+    expires: new Date(0), // es decir que el valor va a estar resetado a 0 
+  });
+  return res.sendStatus(200); // se envia mensaje de salida de la secion
+};
