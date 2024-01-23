@@ -4,6 +4,9 @@ import bcrypt from 'bcryptjs'; // Con esta libreria lo que buscamos es excriptar
 //import jwt from 'jsonwebtoken'; // Esto lo que hace es validar cada peticion que se vaya hacer al back
 import { createAccesToken } from '../libs/jwt.js'; // Ya no importamos jwt como arriba sino que nos traemos la funcionk creada en la carpeta libs.
 
+
+///// DE AQUI HACIA ABAJO ES PARA EL REGISTER: ////
+
 export const register = async ( req, res) => { // esto es lo que va a tomar la app de la info del usuario para guardar en la base de datos en el registro y esto lo hace en formato json
     const {email, password, username} = req.body;
 
@@ -74,5 +77,78 @@ export const register = async ( req, res) => { // esto es lo que va a tomar la a
 }; 
 
 
-export const login = (req, res) => res.send("login"); // de momento solo van a responder un texto res.send("register")
 
+
+
+///// DE AQUI HACIA ABAJO ES PARA EL LOGIN: ////
+
+
+export const login = async ( req, res) => { // esto es lo que va a tomar la app de la info del usuario para guardar en la base de datos en el registro y esto lo hace en formato json
+  const {email, password} = req.body; // A diferencia del register aqui solo se necesita email y password
+
+  try { // Se colocan dentro de un try/catch la funcion de creacion y guardado del usuario que la app me indique de existir algun error 
+
+    // VALIDANDO SI EL USUARIO EXISTE LOGUIADO
+    const userFound = await User.findOne({ email }); // Con este codigo lo que se hace es validar si el password que esta pasando el usuario con la que ya esta registrada. (findOne)
+    if (!userFound) return res.status(400).json({ message: "User not found" }); // y aqui esta pasando la condicional de si no es igual nos diga un error
+    //
+
+
+    // EN ESTE PASO VALIDARA LA COMPARACION DE PASSWORD
+    const isMatch = await bcrypt.compare(password, userFound.password); // Con el metodo compare usara los datos de userFound su possword y lo compara con el ingresado.
+    if (!isMatch) return res.status(400).json({ message: "Incorrect password" }); // Si es diferente indicara error 400 y mensaje.
+    //
+
+
+    const token =  await createAccesToken({ id: userFound._id }); // En este caso va a crear un token del usuario encontrado (userfound)
+    res.cookie('token', token) // Se devuelve al usuario. (Pero ademas se le pasa por una coockie para que el front no tenga que hacer eso directamente en el navegador)
+    res.json({ // Esto es lo que mongo va a regresar al fronted o el usuario. (En este caso pasandole el userFound) del login
+      id: userFound._id,
+      username: userFound.username,
+      email: userFound.email,
+      createAt: userFound.createdAt,
+      updateAt: userFound.updatedAt,
+    });
+
+    // ESTA ES LA REPUESTA YA PASANDO TOKEN Y COOKIES: /// 2DA FORMA /// Y LA OPTIMA (ESTA FUNCION SE PASA A CARPETA LIBS)
+
+    // Se pasa por la validacion del token
+
+    //jwt.sign({ // se crea el token
+    //  id: userSaved.id,
+    //}, 
+    //"secret123",
+    //{
+    //  expiresIn: "1d"
+    //},
+    //(err, token) => {
+    //  if (err) console.log(err);
+    //  res.cookie('token', token) // Se devuelve al usuario. (Pero ademas se le pasa por una coockie para que el front no tenga que hacer eso directamente en el navegador)
+    //  res.json({
+        //message: "User created successfully" // Con esto respondes 
+      //})
+    //}
+    //);
+
+
+
+    // ORIGINALMENTE COMO FUE AL INICIO Y SIN PASAR TOKEN NI COOKIES: /// 1ERA FORMA ////
+
+    //res.json({ // Con eso lo que se hace es que el backend regrese al front el usuario guardado.
+    //  id: userSaved.id,
+    //  username: userSaved.username,
+    //  email: userSaved.email,
+    //  createAt: userSaved.createAt,
+    //  updateAt: userSaved.updateAt,
+    //}) 
+
+
+  } catch (error) {
+    res.status(500).json({ message: error.message }); // para que le muestre el error al usuario
+  }
+
+
+  //console.log(newUser);
+  // console.log(email, password, username);
+  //res.send('registrando')
+};
