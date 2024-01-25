@@ -165,3 +165,12 @@ export const logout = (req, res) => {
   });
   return res.sendStatus(200); // se envia mensaje de salida de la secion
 };
+
+
+
+
+///// DE AQUI HACIA ABAJO ES PARA EL PROFILE: ////
+
+export const profile = (req, res) => {
+  res.send('profile');
+}
