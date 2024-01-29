@@ -3,8 +3,8 @@
 import express from 'express'; // importamos la libreria de express para cojstruir el server
 import morgan from 'morgan'; // importamos morgan  para escuchar las peticiones
 import authRoutes from './routes/auth.routes.js';
+import taskRoutes from './routes/tasks.routes.js';
 import cookieParser from 'cookie-parser'; // Instalamos libreria cookie-parser sirve para covertir la cookie en un objero json
-import taskRoutes from './routes/task.routes.js';
 
 
 const app = express(); // ese app va hacer referencia al servisor. con esto la inicializamos express
@@ -17,7 +17,7 @@ app.use(express.json()); // Esto es vital porque lo que va hacer es trasformar l
 app.use(cookieParser()); // Esto lo que va hacer es convertir todas las cookies en un opjeto json 
 
 app.use("/api", authRoutes); // esto es para indicar quiero que utilices add rauter, (se le agrega el; prefijo api a la tura de peticiones)
-app.use("/api", taskRoutes); // esto es para indicar que quiero que uses esas rutas taskRoutes.
+app.use("/api", taskRoutes);
 
 
 export default app; // Es para decirle que ya inicializo app y lo exporte.
