@@ -17,7 +17,7 @@ app.use(express.json()); // Esto es vital porque lo que va hacer es trasformar l
 app.use(cookieParser()); // Esto lo que va hacer es convertir todas las cookies en un opjeto json 
 
 app.use("/api", authRoutes); // esto es para indicar quiero que utilices add rauter, (se le agrega el; prefijo api a la tura de peticiones)
-app.use("/api", taskRoutes);
+app.use("/api", taskRoutes); // nos traemos todas las rutas de tasks.routes.
 
 
 export default app; // Es para decirle que ya inicializo app y lo exporte.

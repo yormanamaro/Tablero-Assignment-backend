@@ -2,7 +2,7 @@
 
 import mongoose from 'mongoose';
 
-const taskSchema = mongoose.Schema({ // Este sera el modelo que se guardara en la base de datos con respecto a las tareas.
+const taskSchema = new mongoose.Schema({ // Este sera el modelo que se guardara en la base de datos con respecto a las tareas.
   title:{
     type: String,
     required: true,
@@ -11,7 +11,7 @@ const taskSchema = mongoose.Schema({ // Este sera el modelo que se guardara en l
     type: String,
     required: true,
   },
-  date:{
+  date:{ // Este va hacer para cuando se quiere cumplir esa tarea
     type: Date,
     default: Date.now,
   },

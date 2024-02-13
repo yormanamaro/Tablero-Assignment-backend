@@ -1,8 +1,8 @@
 // Esta ruta se crea para crear, eliminar o actualizar tareas recordemos que esta app es de u  tablerop de tareas.
 
-import { Router } from 'express';
+import { Router } from 'express'; // importamos express 
 import { authRequired } from '../middlewares/validateToken.js';
-import { getTasks, getTask, createTask, updateTask, deleteTask } from '../controller/tasks.controller.js';
+import { getTasks, createTask, getTask, deleteTask, updateTask } from '../controller/tasks.controller.js';
 
 const router = Router(); // Recordemos que debemos ejecutar ese metodo de express (Router);
 

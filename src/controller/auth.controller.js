@@ -178,8 +178,8 @@ export const profile = async (req, res) => {
     id: userFound._id,
     username: userFound.username,
     email: userFound.email,
-    createdAt: userFound.created,
-    updatedAt: userFound.updated,
+    createdAt: userFound.createdAt,
+    updatedAt: userFound.updatedAt,
   })
 
   res.send('profile');

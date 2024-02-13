@@ -8,7 +8,7 @@ export const authRequired = (req, res, next) => { // Para que esta funcion sea u
     return res.status(401).json({ message: "No token, authorization denied"});
 
     jwt.verify(token, TOKEN_SECRET, (err, user) => {
-      if (err) return res.status(401).json({ message: "invalid token"});
+      if (err) return res.status(401).json({ message: "invalid token" });
 
       req.user = user; // Significa que del usuario que estoy validando se va a guardar todo dentro de reques user.
 
