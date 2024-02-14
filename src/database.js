@@ -1,6 +1,6 @@
 // Aqui lo que se hace es conectarse con la base de datos mongodb
 
-import mongoose from 'mongoose'; // importamos la libreria de mongoose
+import mongoose from "mongoose"; // importamos la libreria de mongoose
 
 export const connectDB = async () => { // Se crea una funcion asincrona porque debe esperar una respuesta
   try { // try y el catch por si no pasa se espere el error.
