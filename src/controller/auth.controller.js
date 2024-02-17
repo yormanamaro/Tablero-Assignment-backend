@@ -2,7 +2,7 @@
 import User from '../models/user.models.js'; // importamos nuestro modelo de carga de usuarios la forma en que se van a requerir
 import bcrypt from 'bcryptjs'; // Con esta libreria lo que buscamos es excriptar los password para seguridad
 import jwt from 'jsonwebtoken'; // Esto lo que hace es validar cada peticion que se vaya hacer al back
-import { createAccesToken } from '../libs/jwt.js'; // Ya no importamos jwt como arriba sino que nos traemos la funcionk creada en la carpeta libs.
+import { createAccessToken } from '../libs/jwt.js'; // Ya no importamos jwt como arriba sino que nos traemos la funcionk creada en la carpeta libs.
 import { TOKEN_SECRET } from '../configEnv.js';
 
 
@@ -11,11 +11,11 @@ import { TOKEN_SECRET } from '../configEnv.js';
 ///// DE AQUI HACIA ABAJO ES PARA EL REGISTER: ////
 
 export const register = async ( req, res) => { // esto es lo que va a tomar la app de la info del usuario para guardar en la base de datos en el registro y esto lo hace en formato json
-    const {email, password, username} = req.body;
+    const { email, password, username } = req.body;
 
     try { // Se colocan dentro de un try/catch la funcion de creacion y guardado del usuario que la app me indique de existir algun error 
 
-      const passwordHash = await bcrypt.hash(password, 10) // Esto lo que hace es usar bcryptjs con su metodo hash para el password convertirlo en 10 caractereds aleatorios.
+      const passwordHash = await bcrypt.hash(password, 10); // Esto lo que hace es usar bcryptjs con su metodo hash para el password convertirlo en 10 caractereds aleatorios.
 
       const newUser = new User({ // esto lo que hace es crear un nuevo usuario en la BD tomando como referencia los datos ingresados por usuario y del modelo creado
         username,
@@ -26,9 +26,9 @@ export const register = async ( req, res) => { // esto es lo que va a tomar la a
       // ahora luego de que el usuario esta creado con su id se guarda en la bd
   
       const userSaved = await newUser.save(); // como es una funcion asincrona debe ir con async y await la funcion que lo contiene
-      const token =  await createAccesToken({ id: userFound._id }); // Le pasamos el valor que queremos crear que es el usuario que acabamos de crear.
+      const token =  await createAccessToken({ id: userSaved._id }); // Le pasamos el valor que queremos crear que es el usuario que acabamos de crear.
 
-      res.cookie("token", token) // Se devuelve al usuario. (Pero ademas se le pasa por una coockie para que el front no tenga que hacer eso directamente en el navegador)
+      res.cookie("token", token); // Se devuelve al usuario. (Pero ademas se le pasa por una coockie para que el front no tenga que hacer eso directamente en el navegador)
       res.json({ // Esto es lo que mongo va a regresar al fronted o el usuario.
         id: userSaved._id,
         username: userSaved.username,
@@ -65,10 +65,10 @@ export const login = async ( req, res) => { // esto es lo que va a tomar la app 
     //
 
 
-    const token =  await createAccesToken({ id: userFound._id }); // En este caso va a crear un token del usuario encontrado (userfound)
+    const token =  await createAccessToken({ id: userFound._id }); // En este caso va a crear un token del usuario encontrado (userfound)
     res.cookie('token', token) // Se devuelve al usuario. (Pero ademas se le pasa por una coockie para que el front no tenga que hacer eso directamente en el navegador)
     res.json({ // Esto es lo que mongo va a regresar al fronted o el usuario. (En este caso pasandole el userFound) del login
-      id: userSaved._id,
+      id: userFound._id,
       username: userFound.username,
       username: userFound.username,
       createAt: userFound.createdAt,
@@ -87,7 +87,7 @@ export const login = async ( req, res) => { // esto es lo que va a tomar la app 
 //// DE AQUI HACIA ABAJO ES PARA EL LOGOUT SALIR DE LA SECION: ////
 
 export const logout = (req, res) => {
-  res.cookie("token", "", { // metodo cookie token el valor va a estar vacio
+  res.cookie('token', "", { // metodo cookie token el valor va a estar vacio
     expires: new Date(0), // es decir que el valor va a estar resetado a 0 
   });
   return res.sendStatus(200); // se envia mensaje de salida de la secion
