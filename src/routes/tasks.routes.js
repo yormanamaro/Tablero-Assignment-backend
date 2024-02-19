@@ -2,7 +2,7 @@
 
 import { Router } from 'express'; // importamos express 
 import { authRequired } from '../middlewares/validateToken.js';
-import { getTasks, createTask, getTask, deleteTask, updateTask } from '../controller/tasks.controller.js';
+import { getTasks, getTask, createTask, updateTask, deleteTask } from "../controller/tasks.controller.js";
 
 const router = Router(); // Recordemos que debemos ejecutar ese metodo de express (Router);
 
