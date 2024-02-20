@@ -1,4 +1,5 @@
 // Este file va a manejar todos los controladores de las rutas de tareas. (task).
+
 import Task from '../models/task.model.js'; // Nos traemos el esquema de modelos creados para task.
 
 
@@ -10,12 +11,16 @@ export const getTasks = async (req, res) => { // para obtener varias tareas
 
 ////
 export const createTask = async ( req, res) => { // Recordemos que esta es para crear el controlador para crear tareas.
-  const { title, description, date } = req.body; // Esto es lo que se va a recibir del reques body
+  const { title, description, date } = req.body  // Esto es lo que se va a recibir del reques body
+
+  console.log(req.user);
+
   const newTask = new Task({ // aqui se crea la nueva tarea (newTask)
     title,
     description,
-    date
-  })
+    date,
+    user: req.user.id
+  });
   const savedTask = await newTask.save(); // aqui lo guardamos en la base de datos
   res.json(savedTask); // aqui lo guardamos
 };
@@ -35,8 +40,10 @@ export const deleteTask = async (req, res) => { // para eliminar tareas
 };
 
 ////
-export const updateTask = async (req, res) => {
-  const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true}) // aqui no se va a ir solo por el parametro de busqueda (id) sino que tambbien por los nuevos datos (req.body).  
+export const updateTask = async (req, res) => {  // aqui no se va a ir solo por el parametro de busqueda (id) sino que tambbien por los nuevos datos (req.body).
+  const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });  
   if (!task) return res.status(404).json({ message: 'Task not found' }) // pregunta de si hay o no tareas nuevas 
   res.json(task);
 };
