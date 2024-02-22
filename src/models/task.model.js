@@ -15,9 +15,9 @@ const taskSchema = new mongoose.Schema({ // Este sera el modelo que se guardara 
     type: Date,
     default: Date.now,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+  user: { // Para indicar que la tarea creada pertenece a ese usuario logeado.
+    type: mongoose.Schema.Types.ObjectId, // el typo va ghacer referencia a la tarea creada en mongo por ese Schema
+    ref: 'User', // haciendo una referencia al modelo User creado en ese modelo de schema.
     required: true,
   }
 }, 
