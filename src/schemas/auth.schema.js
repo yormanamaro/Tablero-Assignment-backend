@@ -25,3 +25,5 @@ export const registerSchema = z.object({ // Esto lo que va hacer es crear el sch
 		}),	
 
 });
+
+// Esto es para una prueba sin importancia de git 
