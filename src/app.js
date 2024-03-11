@@ -4,13 +4,17 @@ import express from 'express'; // importamos la libreria de express para cojstru
 import morgan from 'morgan'; // importamos morgan  para escuchar las peticiones
 import authRoutes from './routes/auth.routes.js';
 import taskRoutes from './routes/tasks.routes.js';
-import cookieParser from 'cookie-parser'; // Instalamos libreria cookie-parser sirve para covertir la cookie en un objero json
+import cookieParser from 'cookie-parser'; // Instalamos libreria cookie-parser sirve para covertir la cookie en un objero
+import cors from 'cors'; // Libreria para errors de diferencia entre servidor de fornten y backend ERROR CROS del navegador
 
 
 const app = express(); // ese app va hacer referencia al servisor. con esto la inicializamos express
 
 
 /* Midelward */
+app.use(cors({
+    origin: 'http://localhost:5173',
+}));
 app.use(morgan('dev')); // Se indica a la app que use la app morgar con su configuracion dev.
 // esa configuracion dev es para que muestre un mensaje corto en consola.
 app.use(express.json()); // Esto es vital porque lo que va hacer es trasformar las respuestas del usuario en formato json para que express lo pueda interpretar
