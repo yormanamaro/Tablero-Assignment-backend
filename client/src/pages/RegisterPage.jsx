@@ -1,13 +1,16 @@
 import { useForm } from 'react-hook-form'; // importamos la libreria de formularios 
-import { registerRequest } from '../api/auth'; // importamos la autenticacion desde la api
+import { useAuth } from '../context/AuthContext';
+
 
 const RegisterPage = () => {
 
   const { register, handleSubmit } = useForm(); // inicializamos la libreria de formularios de react  con su metodo register
+  const { signup, user } = useAuth();
+
+  console.log(user);
 
   const onSubmite = handleSubmit(async (values) => {
-    const res = await registerRequest(values); // pasamos los valores tomados desde el usuario.
-    console.log(res);
+      signup(values);
     })
 
   return (
