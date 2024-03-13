@@ -4,7 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import RegisterPage from './pages/RegisterPage';
 import LoginPages from './pages/LoginPages';
 
-const App = () => {
+function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -19,7 +19,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
-  );
+  )
 }
 
 export default App

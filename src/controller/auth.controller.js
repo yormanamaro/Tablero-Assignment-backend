@@ -15,6 +15,10 @@ export const register = async ( req, res) => { // esto es lo que va a tomar la a
 
     try { // Se colocan dentro de un try/catch la funcion de creacion y guardado del usuario que la app me indique de existir algun error 
 
+      const userFound = await User.findOne({ email}); // Esto es para que me indique en la interfaz de usuaerio 
+      if (userFound)
+      return res.status(400).json(["The email already exists"]);
+
       const passwordHash = await bcrypt.hash(password, 10); // Esto lo que hace es usar bcryptjs con su metodo hash para el password convertirlo en 10 caractereds aleatorios.
 
       const newUser = new User({ // esto lo que hace es crear un nuevo usuario en la BD tomando como referencia los datos ingresados por usuario y del modelo creado

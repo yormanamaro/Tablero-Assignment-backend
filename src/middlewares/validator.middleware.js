@@ -5,6 +5,6 @@ export const validateSchema = (schema) => (req, res, next) => { // Esta funcion 
 		schema.parse(req.body) // Se usa el metodo parse que ya lo valida en express  // y va a comparar con el req.body xq es lo que va a ir llegando.
 		next(); // Si lo valida correctamente parasara al sigueinete paso.
 	} catch (error) {
-		return res.status(400).json({ error: error.errors.map(error => error.message) }); // Aqui lo que estamos haciendo es que al dar error recorra todo el arreglo y me indique solo el mensaje
+		return res.status(400).json(error.errors.map((error) => error.message)); // Aqui lo que estamos haciendo es que al dar error recorra todo el arreglo y me indique solo el mensaje
 	}
 };
