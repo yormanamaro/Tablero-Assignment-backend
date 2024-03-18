@@ -15,7 +15,7 @@ export const registerSchema = z.object({ // Esto lo que va hacer es crear el sch
 			required_error: "Email is required",
 		})
 		.email({ // Parametro requerido. Esto va a comprobar que tenga un @ un .algo que tenga los parametros de un emal
-			message: "Invalidated email",
+			message: "Email is not valid",
 		}),
 
 	password: z
@@ -38,7 +38,7 @@ export const loginSchema = z.object({
 		required_error: "Email is required",
 	})
 	.email({ // Parametro requerido. Esto va a comprobar que tenga un @ un .algo que tenga los parametros de un emal
-		message: "Invalidated email",
+		message: "Email is not valid",
 	}),
 
 	password: z

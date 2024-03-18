@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form'; // importamos la libreria de formularios 
 import { useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+
 
 
 function RegisterPage() {
@@ -54,8 +55,12 @@ function RegisterPage() {
         </button>
       </form>
 
+      <p className="flex gap-x-2 justify-between">
+          Already have an account? <Link to="/login" className="text-sky-500">Login</Link>
+      </p>
+
     </div>
   )
-};
+}
 
 export default RegisterPage

@@ -1,7 +1,7 @@
 // Con este file lo que vamos hacer es crear un componente que va a englobar a todo y poder compartior los datos por todos los componentes.
 
-import { createContext, useState, useContext } from 'react';
-import { registerRequest } from '../api/auth'; // importamos la autenticacion desde la api
+import { createContext, useState, useContext, useEffect } from 'react';
+import { registerRequest, loginRequest } from '../api/auth'; // importamos la autenticacion desde la api
 
 export const AuthContext = createContext();
 
@@ -30,9 +30,30 @@ export const AuthProvider = ({children}) => {
     }
   };
 
+  const signin = async (user) => {
+    try {
+      const res = await loginRequest(user)
+      console.log(res);
+    } catch (error) {
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+      setErrors([error.response.data.message]);
+    }
+  };
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      const timer = setTimeout(() => {
+        setErrors([]);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errors]);
 
   return (<AuthContext.Provider value={{
       signup,
+      signin,
       user,
       isAuthenticated,
       errors

@@ -6,3 +6,4 @@ const API = 'http://localhost:4000/api' // guardamos nuestra api del back
 
 export const registerRequest = user => axios.post(`${API}/register`, user); // Lo que estamos haciendo es pasar la api con su esquema auth register el el user que es el del body
 
+export const loginRequest = user => axios.post(`${API}/login`, user); // Lo que estamos haciendo es pasar la api con su esquema auth login
