@@ -70,7 +70,7 @@ export const login = async ( req, res) => { // esto es lo que va a tomar la app 
 
 
     const token =  await createAccessToken({ id: userFound._id }); // En este caso va a crear un token del usuario encontrado (userfound)
-    res.cookie('token', token) // Se devuelve al usuario. (Pero ademas se le pasa por una coockie para que el front no tenga que hacer eso directamente en el navegador)
+    res.cookie('token', token); // Se devuelve al usuario. (Pero ademas se le pasa por una coockie para que el front no tenga que hacer eso directamente en el navegador 
     res.json({ // Esto es lo que mongo va a regresar al fronted o el usuario. (En este caso pasandole el userFound) del login
       id: userFound._id,
       username: userFound.username,
@@ -114,5 +114,27 @@ export const profile = async (req, res) => {
     email: userFound.email,
     createdAt: userFound.createdAt,
     updatedAt: userFound.updatedAt,
-  })
-}
+  });
+};
+
+
+///// METODO VERIFY: //// para verificar si el usuario existe para cuando la pagina cargue cada vez
+
+export const verifyToken = async (req, res) => {
+  const { token } = req.cookies;
+
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
+
+  jwt.verify(token, TOKEN_SECRET, async (err, user) => {
+    if (err) return res.status(err).json({ message: "Unauthorized" });
+
+    const userFound = await User.findById(user.id);
+    if (!userFound) return res.status(401).json({ message: "Unauthorized" });
+
+    return res.json({
+      id: userFound._id,
+      username: userFound.username,
+      email: userFound.email,
+    });
+  });
+};

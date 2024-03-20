@@ -1,7 +1,8 @@
 // Con este file lo que vamos hacer es crear un componente que va a englobar a todo y poder compartior los datos por todos los componentes.
 
 import { createContext, useState, useContext, useEffect } from 'react';
-import { registerRequest, loginRequest } from '../api/auth'; // importamos la autenticacion desde la api
+import { registerRequest, loginRequest, verityTokenRequest } from '../api/auth'; // importamos la autenticacion desde la api
+import Cookies from 'js-cookie'; // Nos va a permitir leer la cookies desde el frontend
 
 export const AuthContext = createContext();
 
@@ -34,6 +35,8 @@ export const AuthProvider = ({children}) => {
     try {
       const res = await loginRequest(user)
       console.log(res);
+      setIsAuthenticated(true);
+      setUser(res.data);
     } catch (error) {
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data);
@@ -50,6 +53,34 @@ export const AuthProvider = ({children}) => {
       return () => clearTimeout(timer);
     }
   }, [errors]);
+
+
+
+
+
+  useEffect(() => {
+    async function checkLogin() {
+      const cookies = Cookies.get();
+
+      if (cookies.token) {
+        try {
+          const res = await verityTokenRequest(cookies.token);
+          if (!res.data) return setIsAuthenticated(false);
+
+          setIsAuthenticated(true);
+          setUser(res.data);
+        } catch (error) {
+          setIsAuthenticated(false);
+          setUser(null);
+        }
+      }
+    }
+    checkLogin();
+  }, []);
+
+
+
+
 
   return (<AuthContext.Provider value={{
       signup,
