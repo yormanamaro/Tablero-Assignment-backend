@@ -74,7 +74,7 @@ export const login = async ( req, res) => { // esto es lo que va a tomar la app 
     res.json({ // Esto es lo que mongo va a regresar al fronted o el usuario. (En este caso pasandole el userFound) del login
       id: userFound._id,
       username: userFound.username,
-      username: userFound.username,
+      email: userFound.email,
       createAt: userFound.createdAt,
       updateAt: userFound.updatedAt,
     });
@@ -119,16 +119,17 @@ export const profile = async (req, res) => {
 
 
 ///// METODO VERIFY: //// para verificar si el usuario existe para cuando la pagina cargue cada vez
+// Esta verificacion se va hacer cada vez que la pagina cargue poer primera vez.
 
 export const verifyToken = async (req, res) => {
-  const { token } = req.cookies;
+  const { token } = req.cookies
 
   if (!token) return res.status(401).json({ message: "Unauthorized" });
 
   jwt.verify(token, TOKEN_SECRET, async (err, user) => {
-    if (err) return res.status(err).json({ message: "Unauthorized" });
+    if (err) return res.status(401).json({ message: "Unauthorized" });
 
-    const userFound = await User.findById(user.id);
+    const userFound = await User.findById(user.id)
     if (!userFound) return res.status(401).json({ message: "Unauthorized" });
 
     return res.json({

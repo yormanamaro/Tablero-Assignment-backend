@@ -14,7 +14,7 @@ const app = express(); // ese app va hacer referencia al servisor. con esto la i
 /* Midelward */
 app.use(cors({
     origin: 'http://localhost:5173',
-    credentials: true,
+    credentials: true, // esto es para que tambiense puedan establecer las cookies
 }));
 app.use(morgan('dev')); // Se indica a la app que use la app morgar con su configuracion dev.
 // esa configuracion dev es para que muestre un mensaje corto en consola.

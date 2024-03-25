@@ -7,4 +7,4 @@ export const registerRequest = user => axios.post(`/register`, user); // Lo que 
 
 export const loginRequest = user => axios.post(`/login`, user); // Lo que estamos haciendo es pasar la api con su esquema auth login
 
-export const verityTokenRequest = () => axios.get('/auth/verity'); // Esta sera una ruta anexa a las demas para verificacion.
+export const verityTokenRequest = () => axios.get('/verify'); // Esta sera una ruta anexa a las demas para verificacion.
