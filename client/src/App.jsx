@@ -10,6 +10,7 @@ import HomePage from './pages/HomePage';
 
 import ProtectedRoute from './ProtectedRoute';
 import { TaskProvider } from './context/TasksContext';
+import Navbar from './components/Navbar';
 
 
 
@@ -18,6 +19,7 @@ function App() {
     <AuthProvider>
       <TaskProvider>
         <BrowserRouter>
+          <Navbar />
           <Routes>
             {/* Rutas Publicas */}
             <Route path='/' element={<HomePage />} />
