@@ -28,7 +28,7 @@ const LoginPages = () => {
             </div>
           ))
         }
-        <h1 className="text-2xl font-bold">Login</h1>
+        <h1 className="text-3xl font-bold my-2">Login</h1>
         <form onSubmit={onSubmit}>
           <input type="email" placeholder='Email' {...register("email", {required: true })} className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'  />
             {
@@ -45,7 +45,7 @@ const LoginPages = () => {
                   Password is required
                 </p>)}
 
-          <button type='submit'>
+          <button type='submit' className='bg-sky-500 text-white px-4 py-2 rounded-md my-2'>
             Login
           </button>
   
