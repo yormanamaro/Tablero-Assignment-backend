@@ -43,5 +43,5 @@ function App() {
 
 export default App
 
-// esto no va...git status
+// esto no va...git status.
 
