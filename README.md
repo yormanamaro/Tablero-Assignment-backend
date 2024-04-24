@@ -9,10 +9,23 @@
 ### General Info
 ***
 this is an assignment board that allows you to contain within a user profile, determining all the tasks or activities that the user determines are relevant to add keep track of their compliance.
+
 This application has the advantage that it serves as a skeleton to be inplemented in any other project where it is useful since its construction is intended for this purpose.
+
 Here the user can create their account, log in, create, delete and update tasks as well as a panel where they can view them as a whole, in addition to having user authentication and registrations, protected routes, cookies management. 
 ### Screenshot
-![Image text](https://www.united-internet.de/fileadmin/user_upload/Brands/Downloads/Logo_IONOS_by.jpg)
+Image Register User:
+
+![](https://github.com/yormanamaro/Tablero-Assignment-backend/blob/main/src/asset/Img1_readme.png)
+
+Image Login User:
+
+![](https://github.com/yormanamaro/Tablero-Assignment-backend/blob/main/src/asset/img2_readme.png)
+
+Image Dashboard User:
+
+![](https://github.com/yormanamaro/Tablero-Assignment-backend/blob/main/src/asset/img3_readme.png)
+
 ## Technologies
 ***
 A list of technologies used within the project:
