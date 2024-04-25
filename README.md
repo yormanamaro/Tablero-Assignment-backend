@@ -57,12 +57,12 @@ You can collaborate with this project to improve it.
 ***
 It is structured both one part for the frontend and one part for the backend
 1. **This is a Frontend**
- ![](https://github.com/yormanamaro/Tablero-Assignment-backend/blob/main/src/asset/Img1_readme.png)
+ ![](https://github.com/yormanamaro/Tablero-Assignment-backend/blob/main/src/asset/FrontendFile.png)
 * src client: Api-conextion, assets img-fronted, file-components, Context-components and pages  
 * public: img projects
 * Taildwind Configuration
 2. __This is a Backend__ 
- ![](https://github.com/yormanamaro/Tablero-Assignment-backend/blob/main/src/asset/Img1_readme.png)
+ ![](https://github.com/yormanamaro/Tablero-Assignment-backend/blob/main/src/asset/BackendFile.png)
 * src file: assets, controller, libs, middleware, models, routes, schemas.
 * More file the project configuration.
 3. **Upgrade Options**
